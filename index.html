@@ -272,12 +272,11 @@ nav .btn { padding: 10px 14px; font-size: 12px; }
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getFirestore, doc, onSnapshot, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-// Paste YOUR values from Firebase (Project settings → Your apps → Web app)
 const firebaseConfig = {
-  apiKey: "PASTE_HERE",
-  authDomain: "PASTE_HERE",
-  projectId: "PASTE_HERE",
-  appId: "PASTE_HERE"
+  apiKey: "AIzaSyCKSxW0uWmDABBrLPzpRm5_-EgEfneJjKw",
+  authDomain: "cmu-safewalk.firebaseapp.com",
+  projectId: "cmu-safewalk",
+  appId: "1:213097098786:web:4f70b44b2a22539486e47b"
 };
 
 const db = getFirestore(initializeApp(firebaseConfig));
