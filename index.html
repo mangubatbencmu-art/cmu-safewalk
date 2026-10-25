@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXLDVE31L6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-XXLDVE31L6');
-</script>
-
+  <!-- Google Analytics: shared website traffic reporting -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXLDVE31L6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXLDVE31L6');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="CMU SafeWalk advocates for a safer, more accessible pedestrian path to CHE and New Educ at Central Mindanao University.">
@@ -257,7 +254,7 @@
     <section class="impact" aria-label="Prototype tracking">
       <div class="wrap">
         <div class="impact-inner">
-          <div><strong>Help us measure our impact.</strong><p>This prototype displays counts saved in the current browser only.</p></div>
+          <div><strong>Help us measure our impact.</strong><p>Shared page visits and support clicks are tracked in Google Analytics. The counters below are saved only in this browser.</p><p class="tiny">For shared totals, open Google Analytics → Reports → Engagement → Events. Look for <strong>page_view</strong> and <strong>support_click</strong>.</p></div>
           <div class="stats">
             <div class="stat"><strong id="viewCount">1</strong><span>Visits on this device</span></div>
             <div class="stat"><strong id="clickCount">0</strong><span>Support clicks on this device</span></div>
@@ -290,6 +287,13 @@
       const clicks = Number(localStorage.getItem(clickKey) || 0) + 1;
       localStorage.setItem(clickKey, String(clicks));
       document.getElementById("clickCount").textContent = clicks;
+      // Send a shared event to Google Analytics so support clicks from all visitors can be counted.
+      if (typeof gtag === "function") {
+        gtag('event', 'support_click', {
+          event_category: 'engagement',
+          event_label: 'CMU SafeWalk support button'
+        });
+      }
       const thanks = document.getElementById("thanks");
       thanks.classList.add("show");
       thanks.scrollIntoView({ behavior: "smooth", block: "nearest" });
