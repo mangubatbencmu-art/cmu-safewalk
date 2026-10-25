@@ -1,305 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Analytics: shared website traffic reporting -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXLDVE31L6"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXLDVE31L6');
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="CMU SafeWalk advocates for a safer, more accessible pedestrian path to CHE and New Educ at Central Mindanao University.">
-  <title>CMU SafeWalk | Safer Paths. A Stronger CMU.</title>
-  <style>
-    :root {
-      --green-950: #073d2e;
-      --green-900: #0b4a37;
-      --green-800: #145d45;
-      --green-700: #197451;
-      --green-500: #48a96d;
-      --mint: #e8f5ed;
-      --mint-2: #f4faf6;
-      --ink: #103d30;
-      --muted: #4c6c60;
-      --white: #fff;
-      --shadow: 0 14px 38px rgba(7, 61, 46, .12);
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--ink);
-      background: var(--white);
-      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
-      line-height: 1.6;
-    }
-    a { color: inherit; }
-    .wrap { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
-    header {
-      background: rgba(255,255,255,.97);
-      border-bottom: 1px solid #e5eee8;
-      position: sticky; top: 0; z-index: 5;
-      backdrop-filter: blur(12px);
-    }
-    .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 76px; }
-    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .logo {
-      width: 44px; height: 48px; display: grid; place-items: center;
-      color: white; font-size: 25px; font-weight: 800;
-      background: var(--green-800); clip-path: polygon(50% 0, 100% 17%, 94% 72%, 50% 100%, 6% 72%, 0 17%);
-    }
-    .brand strong { display: block; font-size: 21px; line-height: 1.15; letter-spacing: -.4px; }
-    .brand small { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
-    nav { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 30px); }
-    nav a { font-size: 14px; text-decoration: none; font-weight: 600; }
-    nav a:hover { color: var(--green-500); }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      border: 0; border-radius: 999px; padding: 14px 23px;
-      background: var(--green-700); color: white; font: inherit; font-weight: 750;
-      text-decoration: none; cursor: pointer; transition: transform .18s, background .18s, box-shadow .18s;
-      box-shadow: 0 7px 18px rgba(25,116,81,.18);
-    }
-    .btn:hover { background: var(--green-900); transform: translateY(-1px); }
-    .btn:focus-visible, a:focus-visible { outline: 3px solid #9be2b1; outline-offset: 3px; }
-    .btn.light { background: white; color: var(--green-950); box-shadow: none; }
-    .btn.light:hover { background: var(--mint); }
-    .hero {
-      position: relative; overflow: hidden; color: white;
-      background:
-        linear-gradient(90deg, rgba(5,54,40,.98) 0%, rgba(5,54,40,.93) 36%, rgba(5,54,40,.58) 65%, rgba(5,54,40,.15) 100%),
-        radial-gradient(ellipse at 80% 20%, rgba(135,190,129,.55), transparent 42%),
-        linear-gradient(135deg, #1c6d4b, #8ebc8b 55%, #d5e7c9);
-    }
-    .hero:after {
-      content: ""; position: absolute; inset: 0 0 0 52%; pointer-events: none; opacity: .42;
-      background:
-        linear-gradient(160deg, transparent 0 43%, rgba(255,255,255,.22) 43.3% 44%, transparent 44.3%),
-        repeating-linear-gradient(105deg, transparent 0 70px, rgba(255,255,255,.12) 71px 73px, transparent 74px 145px);
-    }
-    .hero-inner { position: relative; z-index: 1; padding: clamp(68px, 8vw, 108px) 0 84px; max-width: 720px; }
-    .eyebrow { text-transform: uppercase; letter-spacing: .23em; font-size: 12px; font-weight: 800; color: #9ee3ae; }
-    h1 { font-size: clamp(38px, 5.4vw, 66px); line-height: 1.08; letter-spacing: -1.8px; margin: 16px 0 20px; }
-    h1 span { color: #9be3ad; }
-    .hero p { max-width: 590px; font-size: clamp(17px, 2vw, 20px); color: #f1faf4; margin: 0 0 28px; }
-    .hero-note { font-size: 12px; color: #d4eadc; margin-top: 12px; }
-    section { padding: 74px 0; }
-    .section-head { text-align: center; max-width: 760px; margin: 0 auto 38px; }
-    .section-head .eyebrow { color: var(--green-700); }
-    h2 { margin: 10px 0 12px; font-size: clamp(28px, 3.5vw, 42px); letter-spacing: -1px; line-height: 1.16; }
-    .section-head p { color: var(--muted); margin: 0; }
-    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-    .card { padding: 26px 21px; text-align: center; border: 1px solid #e2eee6; border-radius: 18px; background: white; }
-    .icon { width: 64px; height: 64px; display: grid; place-items: center; margin: 0 auto 16px; border-radius: 50%; background: var(--mint); color: var(--green-800); font-size: 30px; }
-    .card h3 { font-size: 17px; margin: 0 0 8px; }
-    .card p { color: var(--muted); font-size: 14px; margin: 0; }
-    .solution { background: linear-gradient(180deg, var(--mint-2), var(--mint)); }
-    .solution-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(30px, 6vw, 72px); align-items: center; }
-    .visual {
-      min-height: 340px; border-radius: 24px; overflow: hidden; position: relative;
-      display: flex; align-items: end; padding: 28px; color: white; box-shadow: var(--shadow);
-      background:
-        linear-gradient(0deg, rgba(5,54,40,.9), rgba(5,54,40,.05)),
-        radial-gradient(ellipse at 50% 0%, #a8cda0 0 12%, transparent 44%),
-        linear-gradient(135deg, #236d4d 0%, #b4d3a8 45%, #6e9e71 46%, #d2e5c8 100%);
-    }
-    .visual:before {
-      content: ""; position: absolute; inset: 35% -10% -10%;
-      background: linear-gradient(105deg, transparent 0 36%, #c7cfc2 36.5% 63%, transparent 63.5%);
-      transform: perspective(260px) rotateX(15deg);
-    }
-    .visual-quote { position: relative; z-index: 1; font-size: clamp(25px, 3vw, 35px); font-weight: 800; line-height: 1.18; max-width: 300px; }
-    .solution-copy .eyebrow { color: var(--green-700); }
-    .solution-copy p { color: var(--muted); }
-    .benefits { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 26px; }
-    .benefit { border-right: 1px solid #c8ded0; padding: 0 10px; text-align: center; font-size: 13px; font-weight: 750; }
-    .benefit:last-child { border: 0; }
-    .benefit span { display: block; font-size: 25px; margin-bottom: 5px; }
-    .cta { padding: 0 0 72px; background: var(--mint); }
-    .cta-panel {
-      border-radius: 24px; padding: clamp(28px, 5vw, 50px);
-      display: flex; justify-content: space-between; align-items: center; gap: 28px;
-      color: white; background: linear-gradient(115deg, var(--green-950), #146b4b);
-      box-shadow: var(--shadow);
-    }
-    .cta-panel .eyebrow { color: #a8e6b7; }
-    .cta-panel h2 { font-size: clamp(26px, 3vw, 36px); margin: 8px 0; }
-    .cta-panel p { margin: 0; color: #e0f2e7; max-width: 580px; }
-    .cta-actions { flex-shrink: 0; text-align: center; }
-    .tiny { font-size: 12px; color: #d2e8da; margin-top: 10px !important; }
-    .thanks {
-      display: none; margin-top: 18px; padding: 14px 16px; border-radius: 12px;
-      background: #e7f7eb; border: 1px solid #b8e6c5; color: #0b4a37; font-weight: 650;
-    }
-    .thanks.show { display: block; }
-    .impact { background: white; padding-top: 0; }
-    .impact-inner { border: 1px solid #e2eee6; border-radius: 16px; padding: 20px 24px; display: flex; justify-content: space-between; gap: 20px; align-items: center; }
-    .impact-inner p { margin: 0; color: var(--muted); font-size: 14px; }
-    .stats { display: flex; gap: 24px; }
-    .stat strong { display: block; color: var(--green-800); font-size: 22px; }
-    .stat span { font-size: 12px; color: var(--muted); }
-    footer { border-top: 1px solid #e5eee8; padding: 25px 0; }
-    .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    footer p { font-size: 12px; color: var(--muted); margin: 0; }
-    @media (max-width: 850px) {
-      nav a:not(.btn) { display: none; }
-      .cards { grid-template-columns: repeat(2,1fr); }
-      .solution-grid { grid-template-columns: 1fr; }
-      .visual { min-height: 260px; }
-      .cta-panel { align-items: flex-start; flex-direction: column; }
-      .cta-actions { text-align: left; }
-      .impact-inner { align-items: flex-start; flex-direction: column; }
-    }
-    @media (max-width: 520px) {
-      .wrap { width: min(100% - 28px, 1160px); }
-      .nav { min-height: 68px; }
-      .brand strong { font-size: 17px; }
-      .brand small { font-size: 10px; }
-      .logo { width: 37px; height: 41px; font-size: 21px; }
-      nav .btn { padding: 10px 14px; font-size: 12px; }
-      .hero-inner { padding: 60px 0 65px; }
-      .cards { grid-template-columns: 1fr; }
-      .benefits { grid-template-columns: repeat(2,1fr); row-gap: 18px; }
-      .benefit:nth-child(2) { border: 0; }
-      .stats { gap: 15px; }
-      .footer-row { align-items: flex-start; flex-direction: column; }
-    }
-  </style>
+<!-- Google Analytics: shared website traffic reporting -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXLDVE31L6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XXLDVE31L6');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="CMU SafeWalk advocates for a safer, more accessible pedestrian path to CHE and New Educ at Central Mindanao University.">
+<title>CMU SafeWalk | Safer Paths. A Stronger CMU.</title>
+<style>
+:root {
+--green-950: #073d2e;
+--green-900: #0b4a37;
+--green-800: #145d45;
+--green-700: #197451;
+--green-500: #48a96d;
+--mint: #e8f5ed;
+--mint-2: #f4faf6;
+--ink: #103d30;
+--muted: #4c6c60;
+--white: #fff;
+--shadow: 0 14px 38px rgba(7, 61, 46, .12);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+margin: 0;
+color: var(--ink);
+background: var(--white);
+font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+line-height: 1.6;
+}
+a { color: inherit; }
+.wrap { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+header {
+background: rgba(255,255,255,.97);
+border-bottom: 1px solid #e5eee8;
+position: sticky; top: 0; z-index: 5;
+backdrop-filter: blur(12px);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 76px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo {
+width: 44px; height: 48px; display: grid; place-items: center;
+color: white; font-size: 25px; font-weight: 800;
+background: var(--green-800); clip-path: polygon(50% 0, 100% 17%, 94% 72%, 50% 100%, 6% 72%, 0 17%);
+}
+.brand strong { display: block; font-size: 21px; line-height: 1.15; letter-spacing: -.4px; }
+.brand small { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
+nav { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 30px); }
+nav a { font-size: 14px; text-decoration: none; font-weight: 600; }
+nav a:hover { color: var(--green-500); }
+.btn {
+display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+border: 0; border-radius: 999px; padding: 14px 23px;
+background: var(--green-700); color: white; font: inherit; font-weight: 750;
+text-decoration: none; cursor: pointer; transition: transform .18s, background .18s, box-shadow .18s;
+box-shadow: 0 7px 18px rgba(25,116,81,.18);
+}
+.btn:hover { background: var(--green-900); transform: translateY(-1px); }
+.btn:focus-visible, a:focus-visible { outline: 3px solid #9be2b1; outline-offset: 3px; }
+.btn.light { background: white; color: var(--green-950); box-shadow: none; }
+.btn.light:hover { background: var(--mint); }
+.hero {
+position: relative; overflow: hidden; color: white;
+background:
+linear-gradient(90deg, rgba(5,54,40,.98) 0%, rgba(5,54,40,.93) 36%, rgba(5,54,40,.58) 65%, rgba(5,54,40,.15) 100%),
+radial-gradient(ellipse at 80% 20%, rgba(135,190,129,.55), transparent 42%),
+linear-gradient(135deg, #1c6d4b, #8ebc8b 55%, #d5e7c9);
+}
+.hero:after {
+content: ""; position: absolute; inset: 0 0 0 52%; pointer-events: none; opacity: .42;
+background:
+linear-gradient(160deg, transparent 0 43%, rgba(255,255,255,.22) 43.3% 44%, transparent 44.3%),
+repeating-linear-gradient(105deg, transparent 0 70px, rgba(255,255,255,.12) 71px 73px, transparent 74px 145px);
+}
+.hero-inner { position: relative; z-index: 1; padding: clamp(68px, 8vw, 108px) 0 84px; max-width: 720px; }
+.eyebrow { text-transform: uppercase; letter-spacing: .23em; font-size: 12px; font-weight: 800; color: #9ee3ae; }
+h1 { font-size: clamp(38px, 5.4vw, 66px); line-height: 1.08; letter-spacing: -1.8px; margin: 16px 0 20px; }
+h1 span { color: #9be3ad; }
+.hero p { max-width: 590px; font-size: clamp(17px, 2vw, 20px); color: #f1faf4; margin: 0 0 28px; }
+.hero-note { font-size: 12px; color: #d4eadc; margin-top: 12px; }
+section { padding: 74px 0; }
+.section-head { text-align: center; max-width: 760px; margin: 0 auto 38px; }
+.section-head .eyebrow { color: var(--green-700); }
+h2 { margin: 10px 0 12px; font-size: clamp(28px, 3.5vw, 42px); letter-spacing: -1px; line-height: 1.16; }
+.section-head p { color: var(--muted); margin: 0; }
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.card { padding: 26px 21px; text-align: center; border: 1px solid #e2eee6; border-radius: 18px; background: white; }
+.icon { width: 64px; height: 64px; display: grid; place-items: center; margin: 0 auto 16px; border-radius: 50%; background: var(--mint); color: var(--green-800); font-size: 30px; }
+.card h3 { font-size: 17px; margin: 0 0 8px; }
+.card p { color: var(--muted); font-size: 14px; margin: 0; }
+.solution { background: linear-gradient(180deg, var(--mint-2), var(--mint)); }
+.solution-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(30px, 6vw, 72px); align-items: center; }
+.visual {
+min-height: 340px; border-radius: 24px; overflow: hidden; position: relative;
+display: flex; align-items: end; padding: 28px; color: white; box-shadow: var(--shadow);
+background:
+linear-gradient(0deg, rgba(5,54,40,.9), rgba(5,54,40,.05)),
+radial-gradient(ellipse at 50% 0%, #a8cda0 0 12%, transparent 44%),
+linear-gradient(135deg, #236d4d 0%, #b4d3a8 45%, #6e9e71 46%, #d2e5c8 100%);
+}
+.visual:before {
+content: ""; position: absolute; inset: 35% -10% -10%;
+background: linear-gradient(105deg, transparent 0 36%, #c7cfc2 36.5% 63%, transparent 63.5%);
+transform: perspective(260px) rotateX(15deg);
+}
+.visual-quote { position: relative; z-index: 1; font-size: clamp(25px, 3vw, 35px); font-weight: 800; line-height: 1.18; max-width: 300px; }
+.solution-copy .eyebrow { color: var(--green-700); }
+.solution-copy p { color: var(--muted); }
+.benefits { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 26px; }
+.benefit { border-right: 1px solid #c8ded0; padding: 0 10px; text-align: center; font-size: 13px; font-weight: 750; }
+.benefit:last-child { border: 0; }
+.benefit span { display: block; font-size: 25px; margin-bottom: 5px; }
+.cta { padding: 0 0 72px; background: var(--mint); }
+.cta-panel {
+border-radius: 24px; padding: clamp(28px, 5vw, 50px);
+display: flex; justify-content: space-between; align-items: center; gap: 28px;
+color: white; background: linear-gradient(115deg, var(--green-950), #146b4b);
+box-shadow: var(--shadow);
+}
+.cta-panel .eyebrow { color: #a8e6b7; }
+.cta-panel h2 { font-size: clamp(26px, 3vw, 36px); margin: 8px 0; }
+.cta-panel p { margin: 0; color: #e0f2e7; max-width: 580px; }
+.cta-actions { flex-shrink: 0; text-align: center; }
+.tiny { font-size: 12px; color: #d2e8da; margin-top: 10px !important; }
+.thanks {
+display: none; margin-top: 18px; padding: 14px 16px; border-radius: 12px;
+background: #e7f7eb; border: 1px solid #b8e6c5; color: #0b4a37; font-weight: 650;
+}
+.thanks.show { display: block; }
+.impact { background: white; padding-top: 0; }
+.impact-inner { border: 1px solid #e2eee6; border-radius: 16px; padding: 20px 24px; display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+.impact-inner p { margin: 0; color: var(--muted); font-size: 14px; }
+.stats { display: flex; gap: 24px; }
+.stat strong { display: block; color: var(--green-800); font-size: 22px; }
+.stat span { font-size: 12px; color: var(--muted); }
+footer { border-top: 1px solid #e5eee8; padding: 25px 0; }
+.footer-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+footer p { font-size: 12px; color: var(--muted); margin: 0; }
+@media (max-width: 850px) {
+nav a:not(.btn) { display: none; }
+.cards { grid-template-columns: repeat(2,1fr); }
+.solution-grid { grid-template-columns: 1fr; }
+.visual { min-height: 260px; }
+.cta-panel { align-items: flex-start; flex-direction: column; }
+.cta-actions { text-align: left; }
+.impact-inner { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 520px) {
+.wrap { width: min(100% - 28px, 1160px); }
+.nav { min-height: 68px; }
+.brand strong { font-size: 17px; }
+.brand small { font-size: 10px; }
+.logo { width: 37px; height: 41px; font-size: 21px; }
+nav .btn { padding: 10px 14px; font-size: 12px; }
+.hero-inner { padding: 60px 0 65px; }
+.cards { grid-template-columns: 1fr; }
+.benefits { grid-template-columns: repeat(2,1fr); row-gap: 18px; }
+.benefit:nth-child(2) { border: 0; }
+.stats { gap: 15px; }
+.footer-row { align-items: flex-start; flex-direction: column; }
+}
+</style>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="#home" aria-label="CMU SafeWalk home">
-        <span class="logo" aria-hidden="true">↟</span>
-        <span><strong>CMU SafeWalk</strong><small>Safer Paths. A Stronger CMU.</small></span>
-      </a>
-      <nav aria-label="Main navigation">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#why">Why It Matters</a>
-        <a href="#support">Support</a>
-        <a class="btn" href="#support">Take Action</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero" id="home">
-      <div class="wrap">
-        <div class="hero-inner">
-          <div class="eyebrow">CMU SafeWalk</div>
-          <h1>Support a safe pedestrian path to <span>CHE and New Educ.</span></h1>
-          <p>Help us advocate for a safer, more accessible walkway for students, faculty, staff, and visitors at Central Mindanao University.</p>
-          <a class="btn" href="#support" id="heroSupport">♥ &nbsp; Support the Project</a>
-          <div class="hero-note">A student-led idea for a safer campus journey.</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="why">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">The problem</div>
-          <h2>The current route needs a safer option.</h2>
-          <p>Students walking to CHE and New Educ may have to share a narrow route with vehicles, while the connecting road remains unfinished.</p>
-        </div>
-        <div class="cards">
-          <article class="card"><div class="icon" aria-hidden="true">🚶</div><h3>No designated sidewalk</h3><p>People walking may need to use the edge of the road alongside moving vehicles.</p></article>
-          <article class="card"><div class="icon" aria-hidden="true">▥</div><h3>Unfinished connection</h3><p>The connecting route from New Educ toward CHE is still unfinished in some sections.</p></article>
-          <article class="card"><div class="icon" aria-hidden="true">♡</div><h3>Safety concerns</h3><p>Muddy, rocky, or uneven areas can make walking less comfortable, especially after rain.</p></article>
-          <article class="card"><div class="icon" aria-hidden="true">👥</div><h3>A shared concern</h3><p>A safer walking route could benefit students, faculty, staff, and campus visitors.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="solution" id="about">
-      <div class="wrap solution-grid">
-        <div class="visual" role="img" aria-label="Illustration of a green campus and pedestrian path">
-          <div class="visual-quote">Safer walks<br>build a stronger<br>CMU community.</div>
-        </div>
-        <div class="solution-copy">
-          <div class="eyebrow">The solution</div>
-          <h2>A safer pedestrian path for CHE and New Educ.</h2>
-          <p>CMU SafeWalk is an advocacy concept that supports a dedicated, accessible pedestrian path connecting the CHE and New Educ areas. Your support helps show that a safer walking route matters to the campus community.</p>
-          <div class="benefits">
-            <div class="benefit"><span>♧</span>Safer for<br>everyone</div>
-            <div class="benefit"><span>🚶</span>More<br>accessible</div>
-            <div class="benefit"><span>⌂</span>A better<br>campus life</div>
-            <div class="benefit"><span>✦</span>A stronger<br>CMU</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta" id="support">
-      <div class="wrap">
-        <div class="cta-panel">
-          <div>
-            <div class="eyebrow">Your support matters</div>
-            <h2>Let’s make CMU safer, together.</h2>
-            <p>Click below to show your support for a safer pedestrian path to CHE and New Educ.</p>
-            <div class="thanks" id="thanks" role="status" aria-live="polite">Thank you for supporting CMU SafeWalk! Your click has been counted on this device.</div>
-          </div>
-          <div class="cta-actions">
-            <button class="btn light" type="button" id="supportButton">♥ &nbsp; Support the Project &nbsp; ›</button>
-            <p class="tiny">One click helps us test interest in this idea.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="impact" aria-label="Prototype tracking">
-      <div class="wrap">
-        <div class="impact-inner">
-          <div><strong>Help us measure our impact.</strong><p>Shared page visits and support clicks are tracked in Google Analytics. The counters below are saved only in this browser.</p><p class="tiny">For shared totals, open Google Analytics → Reports → Engagement → Events. Look for <strong>page_view</strong> and <strong>support_click</strong>.</p></div>
-          <div class="stats">
-            <div class="stat"><strong id="viewCount">1</strong><span>Visits on this device</span></div>
-            <div class="stat"><strong id="clickCount">0</strong><span>Support clicks on this device</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap footer-row">
-      <a class="brand" href="#home">
-        <span class="logo" aria-hidden="true">↟</span>
-        <span><strong>CMU SafeWalk</strong><small>Safer Paths. A Stronger CMU.</small></span>
-      </a>
-      <p>Student advocacy concept · Central Mindanao University</p>
-    </div>
-  </footer>
-
-  <script>
-    // Local prototype counters: stored only in this browser, not shared between visitors.
-    const viewKey = "cmuSafeWalkVisits";
-    const clickKey = "cmuSafeWalkClicks";
-    let visits = Number(localStorage.getItem(viewKey) || 0) + 1;
-    localStorage.setItem(viewKey, String(visits));
-    document.getElementById("viewCount").textContent = visits;
-    document.getElementById("clickCount").textContent = Number(localStorage.getItem(clickKey) || 0);
-
-    document.getElementById("supportButton").addEventListener("click", function () {
-      const clicks = Number(localStorage.getItem(clickKey) || 0) + 1;
-      localStorage.setItem(clickKey, String(clicks));
-      document.getElementById("clickCount").textContent = clicks;
-      // Send a shared event to Google Analytics so support clicks from all visitors can be counted.
-      if (typeof gtag === "function") {
-        gtag('event', 'support_click', {
-          event_category: 'engagement',
-          event_label: 'CMU SafeWalk support button'
-        });
-      }
-      const thanks = document.getElementById("thanks");
-      thanks.classList.add("show");
-      thanks.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      this.innerHTML = "✓ &nbsp; Thank you for your support";
-      this.setAttribute("aria-label", "Thank you for supporting the project");
-    });
-  </script>
-</body>
-</html>
+<header>
+<div class="wrap nav">
+<a class="brand" href="#home" aria-label="CMU SafeWalk home">
+<span class="logo" aria-hidden="true">↟</span>
+<span><strong>CMU SafeWalk</strong><small>Safer Paths. A Stronger CMU.</small></span>
+</a>
+<nav aria-label="Main navigation">
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#why">Why It Matters</a>
+<a href="#support">Support</a>
+<a class="btn" href="#support">Take Action</a>
+</nav>
+</div>
+</header>
+<main>
+<section class="hero" id="home">
+<div class="wrap">
+<div class="hero-inner">
+<div class="eyebrow">CMU SafeWalk</div>
+<h1>Support a safe pedestrian path to <span>CHE and New Educ.</span></h1>
+<p>Help us advocate for a safer, more accessible walkway for students, faculty, staff, and visitors at Central Mindanao University.</p>
+<a class="btn" href="#support" id="heroSupport">♥ &nbsp; Support the Project</a>
+<div class="hero-note">A student-led idea for a safer campus journey.</div>
+</div>
+</div>
+</section>
+<section id="why">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">The problem</div>
+<h2>The current route needs a safer option.</h2>
+<p>Students walking to CHE and New Educ may have to share a narrow route with vehicles, while the connecting road remains unfinished.</p>
+</div>
+<div class="cards">
+<article class="card"><div class="icon" aria-hidden="true">🚶</div><h3>No designated sidewalk</h3><p>People walking may need to use the edge of the
