@@ -205,4 +205,128 @@ nav .btn { padding: 10px 14px; font-size: 12px; }
 <p>Students walking to CHE and New Educ may have to share a narrow route with vehicles, while the connecting road remains unfinished.</p>
 </div>
 <div class="cards">
-<article class="card"><div class="icon" aria-hidden="true">🚶</div><h3>No designated sidewalk</h3><p>People walking may need to use the edge of the
+<article class="card"><div class="icon" aria-hidden="true">🚶</div><h3>No designated sidewalk</h3><p>People walking may need to use the edge of the road alongside moving vehicles.</p></article>
+<article class="card"><div class="icon" aria-hidden="true">▥</div><h3>Unfinished connection</h3><p>The connecting route from New Educ toward CHE is still unfinished in some sections.</p></article>
+<article class="card"><div class="icon" aria-hidden="true">♡</div><h3>Safety concerns</h3><p>Muddy, rocky, or uneven areas can make walking less comfortable, especially after rain.</p></article>
+<article class="card"><div class="icon" aria-hidden="true">👥</div><h3>A shared concern</h3><p>A safer walking route could benefit students, faculty, staff, and campus visitors.</p></article>
+</div>
+</div>
+</section>
+<section class="solution" id="about">
+<div class="wrap solution-grid">
+<div class="visual" role="img" aria-label="Illustration of a green campus and pedestrian path">
+<div class="visual-quote">Safer walks<br>build a stronger<br>CMU community.</div>
+</div>
+<div class="solution-copy">
+<div class="eyebrow">The solution</div>
+<h2>A safer pedestrian path for CHE and New Educ.</h2>
+<p>CMU SafeWalk is an advocacy concept that supports a dedicated, accessible pedestrian path connecting the CHE and New Educ areas. Your support helps show that a safer walking route matters to the campus community.</p>
+<div class="benefits">
+<div class="benefit"><span>♧</span>Safer for<br>everyone</div>
+<div class="benefit"><span>🚶</span>More<br>accessible</div>
+<div class="benefit"><span>⌂</span>A better<br>campus life</div>
+<div class="benefit"><span>✦</span>A stronger<br>CMU</div>
+</div>
+</div>
+</div>
+</section>
+<section class="cta" id="support">
+<div class="wrap">
+<div class="cta-panel">
+<div>
+<div class="eyebrow">Your support matters</div>
+<h2>Let’s make CMU safer, together.</h2>
+<p>Click below to show your support for a safer pedestrian path to CHE and New Educ.</p>
+<div class="thanks" id="thanks" role="status" aria-live="polite">Thank you for supporting CMU SafeWalk! Your support has been counted.</div>
+</div>
+<div class="cta-actions">
+<button class="btn light" type="button" id="supportButton">♥ &nbsp; Support the Project &nbsp; ›</button>
+<p class="tiny">One click helps us test interest in this idea.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="impact" aria-label="Prototype tracking">
+<div class="wrap">
+<div class="impact-inner">
+<div><strong>Help us measure our impact.</strong><p>Page visits and support clicks are tracked in Google Analytics. The totals shown here are shared across all visitors.</p><p class="tiny">For detailed reports, open Google Analytics → Reports → Engagement → Events. Look for <strong>page_view</strong> and <strong>support_click</strong>.</p></div>
+<div class="stats">
+<div class="stat"><strong id="viewCount">–</strong><span>Total visits</span></div>
+<div class="stat"><strong id="clickCount">–</strong><span>Total supporters</span></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap footer-row">
+<a class="brand" href="#home">
+<span class="logo" aria-hidden="true">↟</span>
+<span><strong>CMU SafeWalk</strong><small>Safer Paths. A Stronger CMU.</small></span>
+</a>
+<p>Student advocacy concept · Central Mindanao University</p>
+</div>
+</footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getFirestore, doc, onSnapshot, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+// Paste YOUR values from Firebase (Project settings → Your apps → Web app)
+const firebaseConfig = {
+  apiKey: "PASTE_HERE",
+  authDomain: "PASTE_HERE",
+  projectId: "PASTE_HERE",
+  appId: "PASTE_HERE"
+};
+
+const db = getFirestore(initializeApp(firebaseConfig));
+const ref = doc(db, "stats", "counters");
+
+const viewEl = document.getElementById("viewCount");
+const clickEl = document.getElementById("clickCount");
+const button = document.getElementById("supportButton");
+const thanks = document.getElementById("thanks");
+const SUPPORTED_KEY = "cmuSafeWalkSupported";
+
+// Live shared totals from the database
+onSnapshot(ref, (snap) => {
+  if (!snap.exists()) return;
+  viewEl.textContent = snap.data().visits ?? 0;
+  clickEl.textContent = snap.data().clicks ?? 0;
+}, (err) => console.error("Counter read failed:", err));
+
+// Count one visit per browser session
+if (!sessionStorage.getItem("cmuSafeWalkVisited")) {
+  sessionStorage.setItem("cmuSafeWalkVisited", "1");
+  updateDoc(ref, { visits: increment(1) }).catch(console.error);
+}
+
+function showThanks() {
+  thanks.classList.add("show");
+  button.innerHTML = "✓ &nbsp; Thank you for your support";
+  button.setAttribute("aria-label", "Thank you for supporting the project");
+}
+if (localStorage.getItem(SUPPORTED_KEY)) showThanks();
+
+button.addEventListener("click", function () {
+  // Count one support per device
+  if (!localStorage.getItem(SUPPORTED_KEY)) {
+    localStorage.setItem(SUPPORTED_KEY, "1");
+    updateDoc(ref, { clicks: increment(1) }).catch(console.error);
+  }
+
+  // Shared event for Google Analytics
+  if (typeof gtag === "function") {
+    gtag("event", "support_click", {
+      event_category: "engagement",
+      event_label: "CMU SafeWalk support button"
+    });
+  }
+
+  showThanks();
+  thanks.scrollIntoView({ behavior: "smooth", block: "nearest" });
+});
+</script>
+</body>
+</html>
