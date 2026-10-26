@@ -138,6 +138,7 @@ background: #e7f7eb; border: 1px solid #b8e6c5; color: #0b4a37; font-weight: 650
 .impact { background: white; padding-top: 0; }
 .impact-inner { border: 1px solid #e2eee6; border-radius: 16px; padding: 20px 24px; display: flex; justify-content: space-between; gap: 20px; align-items: center; }
 .impact-inner p { margin: 0; color: var(--muted); font-size: 14px; }
+.impact-inner .tiny { color: var(--muted); }
 .stats { display: flex; gap: 24px; }
 .stat strong { display: block; color: var(--green-800); font-size: 22px; }
 .stat span { font-size: 12px; color: var(--muted); }
@@ -272,6 +273,7 @@ nav .btn { padding: 10px 14px; font-size: 12px; }
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getFirestore, doc, onSnapshot, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
+// Firebase config (compare with Project settings → Your apps in the Firebase console)
 const firebaseConfig = {
   apiKey: "AIzaSyCKSxW0uWmDABBrLPzpRm5_-EgEfneJjKw",
   authDomain: "cmu-safewalk.firebaseapp.com",
@@ -287,18 +289,24 @@ const clickEl = document.getElementById("clickCount");
 const button = document.getElementById("supportButton");
 const thanks = document.getElementById("thanks");
 const SUPPORTED_KEY = "cmuSafeWalkSupported";
+const VISITED_KEY = "cmuSafeWalkVisited";
 
 // Live shared totals from the database
 onSnapshot(ref, (snap) => {
   if (!snap.exists()) return;
   viewEl.textContent = snap.data().visits ?? 0;
   clickEl.textContent = snap.data().clicks ?? 0;
-}, (err) => console.error("Counter read failed:", err));
+}, (err) => console.error("Counter read failed:", err.code, err.message));
 
-// Count one visit per browser session
-if (!sessionStorage.getItem("cmuSafeWalkVisited")) {
-  sessionStorage.setItem("cmuSafeWalkVisited", "1");
-  updateDoc(ref, { visits: increment(1) }).catch(console.error);
+// Returns true only if the server accepted the write
+async function bump(field) {
+  try {
+    await updateDoc(ref, { [field]: increment(1) });
+    return true;
+  } catch (e) {
+    console.error("Counter write failed:", e.code, e.message);
+    return false;
+  }
 }
 
 function showThanks() {
@@ -306,23 +314,30 @@ function showThanks() {
   button.innerHTML = "✓ &nbsp; Thank you for your support";
   button.setAttribute("aria-label", "Thank you for supporting the project");
 }
+
+// Count one visit per browser session, only after the write succeeds
+if (!sessionStorage.getItem(VISITED_KEY)) {
+  bump("visits").then((ok) => { if (ok) sessionStorage.setItem(VISITED_KEY, "1"); });
+}
+
 if (localStorage.getItem(SUPPORTED_KEY)) showThanks();
 
-button.addEventListener("click", function () {
-  // Count one support per device
+button.addEventListener("click", async function () {
+  // Count one support per device, only after the write succeeds
   if (!localStorage.getItem(SUPPORTED_KEY)) {
+    const ok = await bump("clicks");
+    if (!ok) {
+      alert("Sorry, your support could not be saved right now. Please try again in a moment.");
+      return;
+    }
     localStorage.setItem(SUPPORTED_KEY, "1");
-    updateDoc(ref, { clicks: increment(1) }).catch(console.error);
+    if (typeof gtag === "function") {
+      gtag("event", "support_click", {
+        event_category: "engagement",
+        event_label: "CMU SafeWalk support button"
+      });
+    }
   }
-
-  // Shared event for Google Analytics
-  if (typeof gtag === "function") {
-    gtag("event", "support_click", {
-      event_category: "engagement",
-      event_label: "CMU SafeWalk support button"
-    });
-  }
-
   showThanks();
   thanks.scrollIntoView({ behavior: "smooth", block: "nearest" });
 });
